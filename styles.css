@@ -35,7 +35,39 @@ img{
     margin-right: 25px;
     padding: 20px 0;
 }
+/* Ventana detalles pokemon */
+#pokemonWindow{
+    background-color: rgb(126, 126, 126);
+    width: 70%;
+    padding: 15px;
+    min-height: 500px;
+    border-radius: 22px;
+    position:absolute;
+    left: 15%;
+    
+    display: none;
+}
 
+#close{
+    float: right;
+    /* font-size: 120%; */
+    font-weight: 700;
+    border: 1px #fff solid;
+    border-radius: 3px;
+}
+
+#close:hover{
+    float: right;
+    font-size: 110%;
+    font-weight: 700;
+    padding: 2px;
+}
+
+#pokeCard{
+    background-color: yellowgreen;
+}
+
+/* Despligue de pokemones */
 #listDeploy{
     background-color: pink;
     display: inline-flex;
@@ -52,8 +84,6 @@ img{
 
 #listDeploy li img{
     width: 100%;
-    /* padding: 0; */
-    /* height: 50px; */
 }
 
 #listDeploy li h4{
