@@ -38,13 +38,12 @@ img{
 /* Ventana detalles pokemon */
 #pokemonWindow{
     background-color: rgb(126, 126, 126);
-    width: 70%;
+    width: 60%;
     padding: 15px;
     min-height: 500px;
     border-radius: 22px;
     position:absolute;
-    left: 15%;
-    
+    left: 20%;
     display: none;
 }
 

@@ -1,25 +1,29 @@
 import { getData } from "./fetcher.js";
 import { createName, getImg } from "./createli.js";
 
-let pokemonWindow = document.getElementById("pokemonWindow");
-let pokeCard = document.getElementById("pokeCard");
-let close = document.getElementById("close");
-let divCard = document.createElement("div");
-let prevScrollpos = window.pageYOffset;
+const pokemonWindow = document.getElementById("pokemonWindow");
+const pokeCard = document.getElementById("pokeCard");
+const close = document.getElementById("close");
+const divCard = document.createElement("div");
+const ulAbilities = document.createElement("ul");
+const titleAbil = document.createElement("h4");
+
+titleAbil.innerText = "Abilities";
 
 export function pokemonCard(element, index) {
-  console.log(window.pageYOffset);
-  //   pokemonWindow.setAttribute("style", "top:1800px;");
-  divCard.innerHTML = "<div></div>";
+  cleanCard();
+  heightWindow();
+
+  getData(element.url).then((result) => {
+    abilitiesDeploy(result);
+    console.log(result);
+    console.log(result.stats);
+  });
+
   divCard.appendChild(createName(element));
   divCard.appendChild(getImg(index));
-  getData(element.url).then((result) => {
-    pokemonWindow.setAttribute(
-      "style",
-      `display:block; top:${window.pageYOffset + 150}px;`
-    );
-    // console.log(result);
-  });
+  divCard.appendChild(titleAbil);
+  divCard.appendChild(ulAbilities);
   pokeCard.appendChild(divCard);
 }
 
@@ -27,10 +31,24 @@ close.addEventListener("click", () =>
   pokemonWindow.setAttribute("style", "display:none;")
 );
 
-window.addEventListener("scroll", function () {
-  let currentScrollPos = window.pageYOffset;
-  prevScrollpos = currentScrollPos;
-  console.log(currentScrollPos);
-  return currentScrollPos;
-});
-// pokemonWindow.setAttribute("style", `top:${currentScrollPos}px;`);
+const heightWindow = () => {
+  pokemonWindow.setAttribute(
+    "style",
+    `display:block; top:${
+      window.pageYOffset + window.visualViewport.height * 0.15
+    }px;`
+  );
+};
+
+const cleanCard = () => {
+  divCard.innerHTML = "<div></div>";
+  ulAbilities.innerHTML = "<ul></ul>";
+};
+
+const abilitiesDeploy = (result) => {
+  result.abilities.forEach((element, index) => {
+    const liAbil = document.createElement("li");
+    liAbil.innerText = result.abilities[index].ability.name;
+    ulAbilities.appendChild(liAbil);
+  });
+};
