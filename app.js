@@ -1,7 +1,7 @@
 import { getData } from "./functions/fetcher.js";
 import { createLI } from "./functions/createli.js";
 
-let listDeploy = document.getElementById("listDeploy");
+const listDeploy = document.getElementById("listDeploy");
 
 pokelist();
 
