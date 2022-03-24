@@ -1,3 +1,4 @@
+// MÓDULO PARA GENERAR LA TARJETA CON LAS CARACTERISTICAS DE CADA POKEMON
 import { getData } from "./fetcher.js";
 import { createName, getImg } from "./createli.js";
 
@@ -10,48 +11,44 @@ const ulAbilities = document.createElement("ul");
 const titleAbil = document.createElement("h4");
 const chartDiv = document.createElement("div");
 
-let stats = [];
-
 titleAbil.innerText = "Abilities";
 
+// FUNCIÓN PARA GENERAR LA TARJETA A DESPLEGAR
 export function pokemonCard(element, index) {
   cleanCard();
   heightWindow();
-
-  getData(element.url).then((result) => {
-    abilitiesDeploy(result.abilities);
-    createChart(result.stats);
-  });
-
+  pokemonData(element);
   divCard.appendChild(createName(element));
   divCard.appendChild(getImg(index));
   divCard.appendChild(titleAbil);
   divCard.appendChild(ulAbilities);
-
   pokeCard.appendChild(divCard);
   pokeCard.appendChild(chartDiv);
 }
 
+// EVENTO PARA CERRAR VENTANA
 close.addEventListener("click", () =>
   pokemonWindow.setAttribute("style", "display:none;")
 );
 
+// SETUP DE ALTURA PARA MOSTRAR LA TARJETA
 const heightWindow = () => {
   pokemonWindow.setAttribute(
     "style",
     `display:block; top:${
-      window.pageYOffset + window.visualViewport.height * 0.15
+      window.pageYOffset + window.visualViewport.height * 0.08
     }px;`
   );
 };
 
+// FUNCIÓN PARA LIMPIAR EL CONTENIDO DE LA TARJETA
 const cleanCard = () => {
   divCard.innerHTML = "<div></div>";
   ulAbilities.innerHTML = "<ul></ul>";
   chartDiv.innerHTML = "<div></div>";
-  stats = [];
 };
 
+// FUNCIÓN PARA DESPLEGAR LAS HABILIDADES EXTRAIDAS DE LA API
 const abilitiesDeploy = (arr) => {
   arr.forEach((element) => {
     const liAbil = document.createElement("li");
@@ -61,12 +58,20 @@ const abilitiesDeploy = (arr) => {
   });
 };
 
+// FUNCIÓN PARA EXTRAER Y ACOMODAR EL CONTENIDO DE LA TARJETA
+const pokemonData = (element) => {
+  getData(element.url).then((result) => {
+    abilitiesDeploy(result.abilities);
+    createChart(result.stats);
+  });
+};
+
+// FUNCION PARA LA CREACION DEL GRAFICO
 const createChart = (arr) => {
   let stats = [];
   arr.forEach((element) => {
     stats.push(element.base_stat);
   });
-
   const canvas = document.createElement("canvas");
   canvas.setAttribute("id", "myChart");
   chartDiv.appendChild(canvas);
@@ -98,6 +103,9 @@ const createChart = (arr) => {
             display: true,
           },
           suggestedMin: 0,
+          ticks: {
+            stepSize: 20,
+          },
         },
       },
     },

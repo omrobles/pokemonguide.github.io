@@ -1,5 +1,7 @@
+// MÓDULO PARA GENERAR LOS ELEMENTOS DE LA LISTA DE POKEMONES
 import { pokemonCard } from "./pokecard.js";
 
+// FUNCIÓN PARA CREAR LI DE CADA POKEMON
 export function createLI(element, index) {
   const li = document.createElement("li");
   li.appendChild(getImg(index));
@@ -8,6 +10,7 @@ export function createLI(element, index) {
   listDeploy.append(li);
 }
 
+// FUNCIÓN PARA GENERAR LA IMAGEN DEL POKEMON
 export function getImg(index) {
   let id;
   index++;
@@ -27,6 +30,7 @@ export function getImg(index) {
   return image;
 }
 
+// FUNCIÓN PRAR GENERAR EL NOMBRE DEL POKEMON
 export function createName(element) {
   const title = document.createElement("h4");
   title.innerText = element.name[0].toUpperCase() + element.name.slice(1);
